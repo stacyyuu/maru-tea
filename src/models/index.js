@@ -10,7 +10,7 @@ const DATABASE_URL =
 
 const CONNECTION_OPTIONS =
   process.env.NODE_ENV === 'test'
-    ? {}
+    ? {logging: false}
     : {
         ssl: {
           require: true,
