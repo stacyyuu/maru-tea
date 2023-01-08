@@ -40,7 +40,6 @@ async function signIn(req, res, next) {
     // add role: uer.role
     const data = { username: user.username, role: user.role };
     const jwtoken = jwt.sign(data, TOKEN_SECRET);
-  
 
     // instead of sending username, send JWT
     res.send(jwtoken);
@@ -52,23 +51,23 @@ async function signIn(req, res, next) {
 // not going to use response
 async function checkJWT(req, _, next) {
   const auth = req.header('Authorization') || '';
-  if (!auth.startsWith('Bearer ')){
+  if (!auth.startsWith('Bearer ')) {
     next(new Error('Header does not contain Bearer.'));
     return;
   }
   try {
-  const jwtoken = auth.replace('Bearer ', '');
-  const decoded = jwt.verify(jwtoken, TOKEN_SECRET);
-  req.username = decoded.username;
-  req.role = decoded.role;
-  next();
-  } catch (err){
-    next(new Error('Could not decode auth', {cause: err}))
+    const jwtoken = auth.replace('Bearer ', '');
+    const decoded = jwt.verify(jwtoken, TOKEN_SECRET);
+    req.username = decoded.username;
+    req.role = decoded.role;
+    next();
+  } catch (err) {
+    next(new Error('Could not decode auth', { cause: err }));
   }
 }
 
 function checkRole(roles) {
-  return function ensureRole(req, _, next){
+  return function ensureRole(req, _, next) {
     if (roles.includes(req.role)) {
       next();
     } else {
