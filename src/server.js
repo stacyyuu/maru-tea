@@ -24,10 +24,10 @@ server.use('*', notFound);
 
 const start = () => {
   server.listen(PORT, async () => {
-  await sequelize.sync({ alter: true });
-  console.log(`listening on ${PORT}`)});
-}
-
+    await sequelize.sync({ alter: true });
+    console.log(`listening on ${PORT}`);
+  });
+};
 
 module.exports = {
   server,

@@ -10,7 +10,7 @@ const DATABASE_URL =
 
 const CONNECTION_OPTIONS =
   process.env.NODE_ENV === 'test'
-    ? {}
+    ? { logging: false }
     : {
         ssl: {
           require: true,
@@ -23,8 +23,8 @@ const sequelize = new Sequelize(DATABASE_URL, CONNECTION_OPTIONS);
 const Menu = makeDrinks(sequelize);
 const Favorites = addDrink(sequelize);
 
-module.exports = { 
+module.exports = {
   sequelize,
   menuCollection: new Collection(Menu),
-  favoritesCollection: new Collection(Favorites), 
+  favoritesCollection: new Collection(Favorites),
 };
